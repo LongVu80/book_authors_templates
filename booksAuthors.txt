@@ -1,0 +1,147 @@
+(djangoPy3Env) longvu@Longs-MacBook-Pro python_stack % mkdir booksAuthors
+(djangoPy3Env) longvu@Longs-MacBook-Pro python_stack % cd booksAuthors
+(djangoPy3Env) longvu@Longs-MacBook-Pro booksAuthors % django-admin startproject book_authors_proj
+(djangoPy3Env) longvu@Longs-MacBook-Pro booksAuthors % cd book_authors_proj 
+(djangoPy3Env) longvu@Longs-MacBook-Pro book_authors_proj % python3 manage.py startapp books_authors_app
+(djangoPy3Env) longvu@Longs-MacBook-Pro book_authors_proj % python3 manage.py makemigrations
+Migrations for 'books_authors_app':
+  books_authors_app/migrations/0001_initial.py
+    - Create model Authors
+    - Create model Books
+(djangoPy3Env) longvu@Longs-MacBook-Pro book_authors_proj % python3 manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, books_authors_app, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying books_authors_app.0001_initial... OK
+  Applying sessions.0001_initial... OK
+(djangoPy3Env) longvu@Longs-MacBook-Pro book_authors_proj % python3 manage.py shell
+Python 3.8.2 (default, Apr  8 2021, 23:19:18) 
+[Clang 12.0.5 (clang-1205.0.22.9)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from books_authors_app.models import *
+
+(Query: Create 5 books with the following names: C Sharp, Java, Python, PHP, Ruby)
+>>> Books.objects.create(title = "C Sharp")
+<Books: Books object (1)>
+>>> Books.objects.create(title ="Java")
+<Books: Books object (2)>
+>>> Books.objects.create(title = "Python")
+<Books: Books object (3)>
+>>> Books.objects.create(title = "PHP")
+<Books: Books object (4)>
+>>> Books.objects.create(title = "Ruby")
+<Books: Books object (5)>
+
+(Query: Create 5 different authors: Jane Austen, Emily Dickinson, Fyodor Dostoevsky, William Shakespeare, Lau Tzu)
+>>> Authors.objects.create(first_name = "Jane", last_name = "Austen")
+<Authors: Authors object (1)>
+>>> Authors.objects.create(first_name = "Emily", last_name = "Dickinson")
+<Authors: Authors object (2)>
+>>> Authors.objects.create(first_name = "Fyodor", last_name = "Dostoevsky")
+<Authors: Authors object (3)>
+>>> Authors.objects.create(first_name = "William", last_name = "Shakespeare")
+<Authors: Authors object (4)>
+>>> Authors.objects.create(first_name = "Lau", last_name = "Tzu")
+<Authors: Authors object (5)>
+>>> 
+zsh: suspended  python3 manage.py shell
+(djangoPy3Env) longvu@Longs-MacBook-Pro book_authors_proj % python3 manage.py shell
+Python 3.8.2 (default, Apr  8 2021, 23:19:18) 
+[Clang 12.0.5 (clang-1205.0.22.9)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from books_authors_app.models import *
+
+(Query: Change the name of the C Sharp book to C#)
+>>> update = Books.objects.get(id=1)
+>>> update.title = "C#"
+>>> update.save()
+>>> Books.objects.all().values()
+<QuerySet [{'id': 1, 'title': 'C#', 'created_at': datetime.datetime(2021, 5, 16, 17, 9, 2, 341535, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 22, 14, 729883, tzinfo=<UTC>)}, {'id': 2, 'title': 'Java', 'created_at': datetime.datetime(2021, 5, 16, 17, 9, 24, 61608, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 9, 24, 61690, tzinfo=<UTC>)}, {'id': 3, 'title': 'Python', 'created_at': datetime.datetime(2021, 5, 16, 17, 9, 37, 27501, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 9, 37, 27617, tzinfo=<UTC>)}, {'id': 4, 'title': 'PHP', 'created_at': datetime.datetime(2021, 5, 16, 17, 9, 49, 570692, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 9, 49, 570781, tzinfo=<UTC>)}, {'id': 5, 'title': 'Ruby', 'created_at': datetime.datetime(2021, 5, 16, 17, 10, 7, 966395, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 10, 7, 966460, tzinfo=<UTC>)}]>
+
+(Query: Change the first name of the 4th author to Bill)
+>>> update = Authors.objects.get(id=4)
+>>> update.first_name = "Bill"
+>>> update.save()
+>>> Authors.objects.all().values()
+<QuerySet [{'id': 1, 'first_name': 'Jane', 'last_name': 'Austen', 'created_at': datetime.datetime(2021, 5, 16, 17, 10, 58, 709210, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 10, 58, 709268, tzinfo=<UTC>)}, {'id': 2, 'first_name': 'Emily', 'last_name': 'Dickinson', 'created_at': datetime.datetime(2021, 5, 16, 17, 11, 17, 259323, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 11, 17, 259453, tzinfo=<UTC>)}, {'id': 3, 'first_name': 'Fyodor', 'last_name': 'Dostoevsky', 'created_at': datetime.datetime(2021, 5, 16, 17, 11, 48, 203863, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 11, 48, 203952, tzinfo=<UTC>)}, {'id': 4, 'first_name': 'Bill', 'last_name': 'Shakespeare', 'created_at': datetime.datetime(2021, 5, 16, 17, 12, 24, 4668, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 24, 49, 208265, tzinfo=<UTC>)}, {'id': 5, 'first_name': 'Lau', 'last_name': 'Tzu', 'created_at': datetime.datetime(2021, 5, 16, 17, 12, 44, 314340, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 5, 16, 17, 12, 44, 314460, tzinfo=<UTC>)}]>
+zsh: suspended  python3 manage.py shell
+(djangoPy3Env) longvu@Longs-MacBook-Pro book_authors_proj % python3 manage.py makemigrations
+Migrations for 'books_authors_app':
+  books_authors_app/migrations/0002_auto_20210516_1739.py
+    - Add field books to authors
+    - Add field notes to authors
+    - Add field desc to books
+(djangoPy3Env) longvu@Longs-MacBook-Pro book_authors_proj % python3 manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, books_authors_app, contenttypes, sessions
+Running migrations:
+  Applying books_authors_app.0002_auto_20210516_1739... OK
+(djangoPy3Env) longvu@Longs-MacBook-Pro book_authors_proj % python3 manage.py shell
+Python 3.8.2 (default, Apr  8 2021, 23:19:18) 
+[Clang 12.0.5 (clang-1205.0.22.9)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from books_authors_app.models import *
+
+(Query: Assign the first author to the first 2 books)
+>>> Books.objects.get(id=1).authors.add(Authors.objects.get(id=1))
+>>> Books.objects.get(id=2).authors.add(Authors.objects.get(id=1))
+
+(Query: Assign the second author to the first 3 books)
+>>> Books.objects.get(id=1).authors.add(Authors.objects.get(id=2))
+>>> Books.objects.get(id=2).authors.add(Authors.objects.get(id=2))
+>>> Books.objects.get(id=3).authors.add(Authors.objects.get(id=2))
+
+(Query: Assign the third author to the first 4 books)
+>>> Books.objects.get(id=1).authors.add(Authors.objects.get(id=3))
+>>> Books.objects.get(id=2).authors.add(Authors.objects.get(id=3))
+>>> Books.objects.get(id=3).authors.add(Authors.objects.get(id=3))
+>>> Books.objects.get(id=4).authors.add(Authors.objects.get(id=3))
+
+(Query: Assign the fourth author to  the first 5 books (or in other words, all the books))
+>>> Books.objects.get(id=1).authors.add(Authors.objects.get(id=4))
+>>> Books.objects.get(id=2).authors.add(Authors.objects.get(id=4))
+>>> Books.objects.get(id=3).authors.add(Authors.objects.get(id=4))
+>>> Books.objects.get(id=4).authors.add(Authors.objects.get(id=4))
+>>> Books.objects.get(id=5).authors.add(Authors.objects.get(id=4))
+
+(Query: Retrieve all the authors for the 3rd book)
+>>> Books.objects.get(id=3).authors.all()
+<QuerySet [ID: 2 - Emily Dickinson, ID: 3 - Fyodor Dostoevsky, ID: 4 - Bill Shakespeare]>
+
+(Query: Remove the first author of the 3rd book)
+>>> Books.objects.get(id=3).authors.remove(Authors.objects.get(id=2))
+>>> Books.objects.get(id=3).authors.all()
+<QuerySet [ID: 3 - Fyodor Dostoevsky, ID: 4 - Bill Shakespeare]>
+
+(Query: Add the 5th author as one of the authors of the 2nd book)
+>>> Books.objects.get(id=2).authors.add(Authors.objects.get(id=5))
+
+(Query: Find all the books that the 3rd author is part of)
+>>> Authors.objects.get(id=3).books.all()
+<QuerySet [ID: 1 - Title: C#, ID: 2 - Title: Java, ID: 3 - Title: Python, ID: 4 - Title: PHP]>
+
+(Query: Find all the authors that contributed to the 5th book)
+>>> Books.objects.get(id=5).authors.all()
+<QuerySet [ID: 4 - Bill Shakespeare]>
+>>> 
+zsh: suspended  python3 manage.py shell
+(djangoPy3Env) longvu@Longs-MacBook-Pro book_authors_proj % 
